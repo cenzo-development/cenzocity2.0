@@ -1,0 +1,48 @@
+
+
+<style>
+
+body{
+  background-image: url(<%= asset_path('cenzo_foto.jpg')%>);
+  background-size: cover;
+  background-position:center;
+}
+
+</style>
+
+<div>
+
+  <div class="accountbg"></div>
+
+  <div class="wrapper-page account-page-full">
+
+      <div class="card">
+          <div class="card-block">
+              <div class="account-box">
+
+                  <div class="card-box p-5">
+                      <h2 class="text-uppercase text-center pb-4">
+                        <span><%= image_tag "cenzo.png", alt: "", height: "80" %></span>
+                      </h2>
+
+                      <%= form_with url: submit_code_path do |form| %>
+                      <div class="form-group m-b-20 row">
+                        <div class="col-12">
+                            <%= form.label "sms-code" %>
+                            <%= form.text_field :smscode, id: :user_code, class: "form-control", placeholder: "Enter your passcode" %>
+                        </div>
+
+                      </div>
+                      <div class="form-group row text-center m-t-10">
+                        <div class="col-12">
+                          <%= form.submit "Continue",  class: "btn btn-block btn-custom waves-effect waves-light" %>
+                        </div>
+                    </div>
+                    <%end%>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>

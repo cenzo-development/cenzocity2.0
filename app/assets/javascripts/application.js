@@ -13,13 +13,7 @@
 
 //= require bootstrap
 //= require rails-ujs
-//= require jquery.knob
-//= require jquery.slimscroll
-//= require metisMenu.min
-//= require modernizr.min
-//= require waves
-//= require wow.min
-//= require jquery.app
+
 //= require activestorage
 //= require turbolinks
 //= require_tree .
