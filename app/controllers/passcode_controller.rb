@@ -3,5 +3,7 @@ class PasscodeController < ApplicationController
   end
 
   def submit
+
+    redirect_to root_path
   end
 end

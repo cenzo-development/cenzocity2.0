@@ -1,7 +1,7 @@
 
 
 Given("I am a registered user") do
-    @registered = FactoryBot.create(:user, email: 'henry@mail.com', password: 'pa$$word', pass_code: Digest::SHA512.hexdigest("222222"))
+    @registered = FactoryBot.create(:user, email: 'henry@mail.com', password: 'pa$$word', pass_code: Digest::SHA512.hexdigest("222222"), mobile_phone: '0685291403')
 end
 
 Given("I visit the homepage") do
@@ -32,7 +32,7 @@ Given("I am logged in") do
 end
 
 When("I fill in the passcode form") do
-  fill_in 'smscode', with: '222222'
+  fill_in 'smscode', with: @registered.pass_code 
   click_button('Continue')
 end
 
