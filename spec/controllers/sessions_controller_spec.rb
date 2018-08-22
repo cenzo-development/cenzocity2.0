@@ -15,7 +15,7 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   describe "POST #create" do
-    context "with correct email and password" do
+    context "with valid email and password combination" do
 
       it "creates a new session" do
         usr.expects(:authenticate).with(user.password).at_most_once
@@ -32,17 +32,23 @@ RSpec.describe SessionsController, type: :controller do
         params = {email: user.email, password: user.password}
         post :create, {params: params}
         expect(response).to redirect_to passcode_path
-        expect(controller.flash[:success]).to_not be nil 
+      end
+      it "sets login success message" do
+        usr.expects(:authenticate).with(user.password).at_most_once
+        code_generator.expects(:generate_passcode).with(user.id).at_most_once
+        utilities.expects(:send_pass_code).with(user.pass_code, user.mobile_phone).at_most_once
+        params = {email: user.email, password: user.password}
+        post :create, {params: params}
+        expect(controller.flash[:success]).to_not be nil
       end
     end
 
-    context "with incorrect email or password" do
+    context "with invalid email and password" do
       it "it should re-render new template with wrong email" do
         usr.expects(:authenticate).with(user.password).at_most_once
         params = {email: 'mavel@mail.com', password: user.password}
         post :create, {params: params}
         expect(response).to render_template("new")
-        expect(controller.flash[:error]).to_not be nil
       end
       it "it should re-render new template with wrong password" do
         usr.expects(:authenticate).with(user.password).at_most_once
@@ -51,16 +57,35 @@ RSpec.describe SessionsController, type: :controller do
         expect(response).to render_template("new")
 
       end
+      it "sets error message with wrong password" do
+        usr.expects(:authenticate).with(user.password).at_most_once
+        params = {email: user.email, password: 'happy'}
+        post :create, {params: params}
+        expect(controller.flash[:error]).to_not be nil
+      end
+      it "sets error message with wrong email" do
+        usr.expects(:authenticate).with(user.password).at_most_once
+        params = {email: 'mavel@mail.com', password: user.password}
+        post :create, {params: params}
+        expect(controller.flash[:error]).to_not be nil
+      end
     end
-
   end
 
-  describe "GET #destroy" do
-    it "returns http success" do
-      get :destroy
-      expect(response).to have_http_status(:success)
+
+  describe "DELETE #destroy" do
+    it "deletes the current user session" do
+      delete :destroy
+      expect(controller.session[:user_id]).to be_nil
+    end
+    it "sets logout info message" do
+      delete :destroy
+      expect(subject.flash[:notice]).to_not be nil
+    end
+    it "redirects to login page" do
+      delete :destroy
+      expect(subject.response).to redirect_to new_session_path
     end
   end
-
 
 end
