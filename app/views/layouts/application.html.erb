@@ -5,23 +5,26 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="assets/icons.css" rel="stylesheet">
+
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
 
+    <% unless request.url.include?('sessions/new') || request.url.include?('passcode/enter') %>
+    <%= render 'layouts/navigation' %>
+    <% end %>
+
     <div class="flash-container">
       <% flash.each do |key, value| %>
       <div class= "<%= flash_class(key) %>"><%= value %></div>
       <%end%>
     </div>
-
-    <style type="text/css">
-    .flash-container{
-      float: left;
-    }
-    </style>
 
 
     <%= yield %>

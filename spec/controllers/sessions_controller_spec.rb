@@ -7,6 +7,7 @@ RSpec.describe SessionsController, type: :controller do
   let (:code_generator) {mock('PasscodeGenerator')}
   let (:utilities) {mock("Utilities")}
   before {log_in(usr)}
+
   describe "GET #new" do
     it "returns http success" do
       get :new
