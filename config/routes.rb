@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get 'passcode/enter' => 'passcode#enter', as: 'passcode'
   post 'passcode/enter' => 'passcode#submit', as: 'submit_code'
   get 'dashboard/index' => 'dashboard#index'
-  delete '/logout' => 'sessions#destroy'
+  delete 'sessions/logout' => 'sessions#destroy', as: 'logout'
 
   root to: 'dashboard#index'
 
@@ -10,5 +10,7 @@ Rails.application.routes.draw do
 
 
   resources :sessions, only: [:new, :create]
+
+  resources :clients
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -11,9 +11,17 @@
 // about supported directives.
 //
 
-//= require bootstrap
-//= require rails-ujs
 
+//= require rails-ujs
+//= require popper
+//=require jquery.min 
+//= require jquery.core.js
+//= require jquery.app.js
+//=require jquery.slimscroll.js
+//= require waves.js
+//= require metisMenu.min
+//= require modernizr.min
+//= require bootstrap
 //= require activestorage
 //= require turbolinks
 //= require_tree .
